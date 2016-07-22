@@ -13,7 +13,10 @@ services:
     environment:
       - REDIS_OPTS=--protected-mode no
   owncloud:
-    build: .
+    build:
+      context: .
+      args:
+        - OWNCLOUD_TARBALL=${OWNCLOUD_TARBALL}
     image: "owncloud/enterprise:${VERSION}"
     ports:
       - "443:443"
@@ -27,11 +30,13 @@ services:
     environment:
       - MARIADB_ENV_MARIADB_ROOT_PASSWORD=secret
       - OWNCLOUD_DOMAIN=mycloud.domain.com
+    volumes:
+      - ./data:/mnt/data
 networks:
   default:
     ipam:
       driver: default
       config:
-        - subnet: 172.28.0.0/16
-          ip_range: 172.28.5.0/24
-          gateway: 172.28.5.254
+        - subnet: 172.29.0.0/16
+          ip_range: 172.29.5.0/24
+          gateway: 172.29.5.254

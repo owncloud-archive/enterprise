@@ -1,7 +1,10 @@
-FROM owncloud/server:9.0.3
+FROM owncloud/owncloud-base:latest
 
-ADD owncloud-enterprise-complete-9.0.3.tar.bz2 /var/www/
+# download ownCloud
+ARG OWNCLOUD_TARBALL=""
+RUN curl -sLo - ${OWNCLOUD_TARBALL} | tar xfj - -C /var/www/
+ADD conf/config.php /var/www/owncloud/config/config.php
 RUN chown -R www-data.www-data /var/www/owncloud
 
 # Configure your setup here
-ENV OWNCLOUD_DOMAIN=owncloud.com
+ENV OWNCLOUD_DOMAIN=myown.cloud.com
