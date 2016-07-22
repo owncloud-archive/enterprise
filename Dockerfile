@@ -6,7 +6,6 @@ ARG USER=""
 ARG PASS=""
 
 RUN curl -u $USER:$PASS -sLo - ${OWNCLOUD_TARBALL} | tar xfj - -C /var/www/
-ADD conf/config.php /var/www/owncloud/config/config.php
 RUN chown -R www-data.www-data /var/www/owncloud
 
 # Configure your setup here
