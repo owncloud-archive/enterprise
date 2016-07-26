@@ -14,7 +14,7 @@ You will be asked for the Password next.
 ## Build your ownCloud enterprise image from tarball
 
 1. Download ownCloud Enterprise ```owncloud-enterprise-complete-9.0.3.tar.bz2``` from ownCloud's Customer Download Center to this folder.
-2. Replace loading tarball in Dockerfile with 
+2. Replace the `curl` command for loading tarball from URL in Dockerfile with 
 
 ```
    ADD owncloud-enterprise-complete-9.0.3.tar.bz2 /var/www/
