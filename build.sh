@@ -15,6 +15,6 @@ echo "ownCloud Enterprise Credentials correct"
 echo "Building ownCloud enterprise $VERSION"
 echo $OWNCLOUD_TARBALL
 
-docker pull owncloud/owncloud-base
-docker build -t owncloud/enterprise:$VERSION --build-arg OWNCLOUD_TARBALL=$OWNCLOUD_TARBALL --build-arg USER=$USER --build-arg PASS=$PASS .
+#docker pull owncloud/owncloud-base
+docker build -t owncloud/enterprise:$VERSION --build-arg OWNCLOUD_TARBALL=$OWNCLOUD_TARBALL --build-arg USER=$USER --build-arg PASS=$PASS --no-cache .
 
