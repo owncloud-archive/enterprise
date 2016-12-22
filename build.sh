@@ -2,6 +2,7 @@
 
 source .env
 
+[[ "$#" < 1 ]] && echo "Usage: build.sh username" && exit 
 USER=$1
 echo -n Password: 
 read -s PASS
