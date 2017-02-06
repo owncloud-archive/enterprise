@@ -109,11 +109,9 @@ By default you can access the ownCloud instance at [https://localhost/](https://
 ## Versions
 
 * [latest](https://github.com/owncloud-docker/enterprise/tree/master) available as ```owncloud/enterprise:latest```
-* [9.1.4](https://github.com/owncloud-docker/enterprise/tree/9.1.4) available as ```owncloud/enterprise:9.1.4```
 * [9.1.3](https://github.com/owncloud-docker/enterprise/tree/9.1.3) available as ```owncloud/enterprise:9.1.3```
 * [9.1.2](https://github.com/owncloud-docker/enterprise/tree/9.1.2) available as ```owncloud/enterprise:9.1.2```
 * [9.1.1](https://github.com/owncloud-docker/enterprise/tree/9.1.1) available as ```owncloud/enterprise:9.1.1```
-* [9.1.0](https://github.com/owncloud-docker/enterprise/tree/9.1.0) available as ```owncloud/enterprise:9.1.0```
 * [9.0.8](https://github.com/owncloud-docker/enterprise/tree/9.0.8) available as ```owncloud/enterprise:9.0.8```
 * [9.0.7](https://github.com/owncloud-docker/enterprise/tree/9.0.7) available as ```owncloud/enterprise:9.0.7```
 * [9.0.6](https://github.com/owncloud-docker/enterprise/tree/9.0.6) available as ```owncloud/enterprise:9.0.6```
@@ -122,7 +120,6 @@ By default you can access the ownCloud instance at [https://localhost/](https://
 * [9.0.3](https://github.com/owncloud-docker/enterprise/tree/9.0.3) available as ```owncloud/enterprise:9.0.3```
 * [9.0.2](https://github.com/owncloud-docker/enterprise/tree/9.0.2) available as ```owncloud/enterprise:9.0.2```
 * [9.0.1](https://github.com/owncloud-docker/enterprise/tree/9.0.1) available as ```owncloud/enterprise:9.0.1```
-* [9.0.0](https://github.com/owncloud-docker/enterprise/tree/9.0.0) available as ```owncloud/enterprise:9.0.0```
 
 
 ## Volumes
