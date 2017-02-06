@@ -101,8 +101,8 @@ By default you can access the ownCloud instance at [https://localhost/](https://
 ### Build image from tarball
 
 1. Download ownCloud Enterprise ```owncloud-enterprise-complete-9.1.3.tar.bz2``` from the Customer Download Center to this folder.
-2. Comment out the `curl` command for downloading the tarball from the URL within the `Dockerfile`
-3. Remove the comments from the `ADD` and `RUN` commands within the `Dockerfile`
+2. Comment out the first `curl` command for downloading the tarball from the URL within the `Dockerfile`
+3. Remove the comment from the `ADD` command within the `Dockerfile`
 4. Build the ownCloud Enterprise docker image based on the `Dockerfile` as mentioned above.
 
 
