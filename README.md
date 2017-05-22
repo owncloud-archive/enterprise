@@ -136,6 +136,10 @@ By default you can access the ownCloud instance at [https://localhost/](https://
 ## Versions
 
 * [latest](https://github.com/owncloud-docker/enterprise/tree/master) available as ```owncloud/enterprise:latest```
+* [10.0.1RC4](https://github.com/owncloud-docker/enterprise/tree/10.0.1RC4) available as ```owncloud/enterprise:10.0.1RC4```
+* [10.0.1RC3](https://github.com/owncloud-docker/enterprise/tree/10.0.1RC3) available as ```owncloud/enterprise:10.0.1RC3```
+* [10.0.1RC2](https://github.com/owncloud-docker/enterprise/tree/10.0.1RC2) available as ```owncloud/enterprise:10.0.1RC2```
+* [10.0.1RC1](https://github.com/owncloud-docker/enterprise/tree/10.0.1RC1) available as ```owncloud/enterprise:10.0.1RC1```
 * [10.0.0](https://github.com/owncloud-docker/enterprise/tree/10.0.0) available as ```owncloud/enterprise:10.0.0```
 * [10.0.0RC5](https://github.com/owncloud-docker/enterprise/tree/10.0.0RC5) available as ```owncloud/enterprise:10.0.0RC5```
 * [10.0.0RC4](https://github.com/owncloud-docker/enterprise/tree/10.0.0RC4) available as ```owncloud/enterprise:10.0.0RC4```
