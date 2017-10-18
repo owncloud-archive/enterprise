@@ -1,7 +1,5 @@
 # ownCloud: Enterprise
 
-[![](https://images.microbadger.com/badges/image/owncloud/enterprise.svg)](https://microbadger.com/images/owncloud/enterprise "Get your own image badge on microbadger.com")
-
 This is the official ownCloud image for the enterprise edition, it is built from our [base container](https://registry.hub.docker.com/u/owncloud/base/). This ownCloud image is designed to work with a data volume in the host filesystem and with separate MariaDB and Redis containers.
 
 
@@ -34,7 +32,7 @@ To get an overview about the available versions please take a look at the [GitHu
 
 ## Build locally
 
-The available versions should be already pushed to the Docker Hub, but in case you want to try a change locally you can always execute the following command (run from a cloned GitHub repository) to get an image built locally:
+The image can be build by executing the following command (run from a cloned GitHub repository) to get an image built locally:
 
 ```
 source .env
