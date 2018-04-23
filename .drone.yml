@@ -68,7 +68,7 @@ pipeline:
       - |
         for IMAGE in ${IMAGE_TAGS}; do
           docker tag owncloud/enterprise:latest registry.owncloud.com/owncloud/enterprise:$IMAGE
-          docker push registry.owncloud.com/tboerger/enterprise:$IMAGE
+          docker push registry.owncloud.com/owncloud/enterprise:$IMAGE
         done
     when:
       event: [ push ]
