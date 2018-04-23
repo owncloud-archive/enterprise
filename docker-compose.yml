@@ -12,7 +12,7 @@ volumes:
 
 services:
   owncloud:
-    image: owncloud/enterprise:${VERSION}
+    image: owncloud/enterprise:${OWNCLOUD_VERSION}
     restart: always
     ports:
       - ${HTTPS_PORT}:443
@@ -21,7 +21,7 @@ services:
       - db
       - redis
     environment:
-      - OWNCLOUD_DOMAIN=${DOMAIN}
+      - OWNCLOUD_DOMAIN=${OWNCLOUD_DOMAIN}
       - OWNCLOUD_DB_TYPE=mysql
       - OWNCLOUD_DB_NAME=owncloud
       - OWNCLOUD_DB_USERNAME=owncloud
@@ -32,7 +32,7 @@ services:
       - OWNCLOUD_UTF8MB4_ENABLED=true
       - OWNCLOUD_REDIS_ENABLED=true
       - OWNCLOUD_REDIS_HOST=redis
-      - OWNCLOUD_LICENSE_KEY=${LICENSE}
+      - OWNCLOUD_LICENSE_KEY=${OWNCLOUD_LICENSE}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/status.php"]
       interval: 30s
