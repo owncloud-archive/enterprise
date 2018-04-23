@@ -1,0 +1,134 @@
+workspace:
+  base: /drone
+  path: src/github.com/owncloud-docker/enterprise
+
+branches:
+  - master
+  - 9.1.x
+  - 9.0.x
+
+clone:
+  git:
+    image: plugins/git:1
+    pull: true
+
+pipeline:
+  tarball:
+    image: plugins/download:latest
+    pull: true
+    secrets: [ download_username, download_password ]
+    source: https://download.owncloud.com/internal/${CORE_VERSION}/owncloud-enterprise-complete-${CORE_VERSION}.tar.bz2
+    sha256: ${CORE_CHECKSUM}
+
+  ldap:
+    image: plugins/download:latest
+    pull: true
+    source: https://github.com/owncloud/user_ldap/releases/download/${LDAP_VERSION}/user_ldap.tar.gz
+    sha256: ${LDAP_CHECKSUM}
+
+  wait:
+    image: owncloud/ubuntu:latest
+    pull: true
+    commands:
+      - wait-for-it -t 600 docker:2375
+
+  build:
+    image: toolhippie/docker:latest
+    pull: true
+    environment:
+      - DOCKER_HOST=tcp://docker:2375
+    commands:
+      - docker build -t owncloud/enterprise:latest .
+
+  server:
+    image: toolhippie/docker:latest
+    pull: true
+    detach: true
+    secrets: [ owncloud_license_key ]
+    environment:
+      - DOCKER_HOST=tcp://docker:2375
+    commands:
+      - docker run -p 8000:80 -e OWNCLOUD_LICENSE_KEY owncloud/enterprise:latest
+
+  test:
+    image: owncloud/ubuntu:latest
+    pull: true
+    commands:
+      - wait-for-it -t 600 docker:8000
+      - curl -v http://docker:8000/status.php
+
+  publish:
+    image: toolhippie/docker:latest
+    pull: true
+    secrets: [ docker_username, docker_password ]
+    environment:
+      - DOCKER_HOST=tcp://docker:2375
+    commands:
+      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD registry.owncloud.com
+      - |
+        for IMAGE in ${IMAGE_TAGS}; do
+          docker tag owncloud/enterprise:latest registry.owncloud.com/owncloud/enterprise:$IMAGE
+          docker push registry.owncloud.com/tboerger/enterprise:$IMAGE
+        done
+    when:
+      event: [ push ]
+
+  microbadger:
+    image: plugins/webhook:1
+    pull: true
+    secrets: [ webhook_urls ]
+    when:
+      local: false
+      event: [ push ]
+
+  slack:
+    image: plugins/slack:1
+    pull: true
+    secrets: [ slack_webhook ]
+    channel: docker
+    when:
+      local: false
+      event: [ push ]
+      status: [ changed, failure ]
+
+services:
+  docker:
+    image: docker:18.04-dind
+
+matrix:
+  include:
+    - CORE_VERSION: 10.0.7
+      CORE_CHECKSUM: 9d422071d43e9a42e4f036ba1a664ca3d8dbb2164f8eb40b96742aa63059b27c
+      LDAP_VERSION: v0.10.0
+      LDAP_CHECKSUM: a779b3d435c170d74365853b66962e8020712c7775a0a2399519eea4bf93585d
+      IMAGE_TAGS: 10.0.7 10.0 latest
+
+    - CORE_VERSION: 10.0.4
+      CORE_CHECKSUM: ca82d4554e0cfbae5fffe407c6c327705ec532ba916adef0667081c151cd4395
+      LDAP_VERSION: v0.10.0
+      LDAP_CHECKSUM: a779b3d435c170d74365853b66962e8020712c7775a0a2399519eea4bf93585d
+      IMAGE_TAGS: 10.0.4
+
+    - CORE_VERSION: 10.0.3
+      CORE_CHECKSUM: 063d854f7806ae17ded3506f034d5366e06a06254caf39ba01cb66f8b42bbc30
+      LDAP_VERSION: v0.10.0
+      LDAP_CHECKSUM: a779b3d435c170d74365853b66962e8020712c7775a0a2399519eea4bf93585d
+      IMAGE_TAGS: 10.0.3
+
+    - CORE_VERSION: 10.0.2
+      CORE_CHECKSUM: dae33da6633b04f25bbf955edf36881b2a7d452da4d2657df0a08e3d9cb18524
+      LDAP_VERSION: v0.10.0
+      LDAP_CHECKSUM: a779b3d435c170d74365853b66962e8020712c7775a0a2399519eea4bf93585d
+      IMAGE_TAGS: 10.0.2
+
+    - CORE_VERSION: 10.0.1
+      CORE_CHECKSUM: 827394b91d823668e20481844f3505991914b8bbade6a2f12ac0cb9affb20fd1
+      LDAP_VERSION: v0.10.0
+      LDAP_CHECKSUM: a779b3d435c170d74365853b66962e8020712c7775a0a2399519eea4bf93585d
+      IMAGE_TAGS: 10.0.1
+
+    - CORE_VERSION: 10.0.0
+      CORE_CHECKSUM: 81dacdf6940391c9625807606455034324b6e53e1cb4508b25a3dc6150feb63b
+      LDAP_VERSION: v10.0.0RC2
+      LDAP_CHECKSUM: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      IMAGE_TAGS: 10.0.0

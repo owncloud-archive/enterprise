@@ -1,5 +1,8 @@
 # ownCloud: Enterprise
 
+[![Build Status](https://drone.owncloud.com/api/badges/owncloud-docker/enterprise/status.svg)](https://drone.owncloud.com/owncloud-docker/enterprise)
+[![](https://images.microbadger.com/badges/image/owncloud/enterprise.svg)](https://microbadger.com/images/owncloud/enterprise "Get your own image badge on microbadger.com")
+
 This is the official ownCloud image for the enterprise edition, it is built from our [base container](https://registry.hub.docker.com/u/owncloud/base/). This ownCloud image is designed to work with a data volume in the host filesystem and with separate MariaDB and Redis containers.
 
 
@@ -18,6 +21,7 @@ To get an overview about the available versions please take a look at the [GitHu
 * 80
 * 443
 
+
 ## Available environment variables
 
 ```
@@ -32,11 +36,14 @@ To get an overview about the available versions please take a look at the [GitHu
 
 ## Build locally
 
-The image can be build by executing the following command (run from a cloned GitHub repository) to get an image built locally:
+The available versions should be already pushed to our private registry, but in case you want to try a change locally you can always execute the following command (run from a cloned GitHub repository) to get an image built locally:
 
 ```
-source .env
-CUSTOMER_USERNAME=username CUSTOMER_PASSWORD=password IMAGE_NAME=owncloud/enterprise:${VERSION} ./hooks/build
+wget https://username:password@customer.owncloud.com/owncloud/remote.php/webdav/ownCloud-Enterprise/ownCloud-10.0/oC-10.0.7/owncloud-enterprise-complete-10.0.7.tar.bz2
+wget https://github.com/owncloud/user_ldap/releases/download/0.10.0/user_ldap.tar.gz
+
+docker pull owncloud/base:latest
+docker build -t registry.owncloud.com/owncloud/enterprise:latest .
 ```
 
 
@@ -72,10 +79,10 @@ Then you can start the ownCloud web server, you can customize the used environme
 ```bash
 export OWNCLOUD_VERSION=10.0
 export OWNCLOUD_DOMAIN=localhost
-export OWNCLOUD_ADMIN_USERNAME=admin
-export OWNCLOUD_ADMIN_PASSWORD=admin
-export OWNCLOUD_HTTP_PORT=80
-export OWNCLOUD_HTTPS_PORT=443
+export ADMIN_USERNAME=admin
+export ADMIN_PASSWORD=admin
+export HTTP_PORT=80
+export HTTPS_PORT=443
 export OWNCLOUD_LICENSE=your-enterprise-license
 
 docker volume create owncloud_files
@@ -84,16 +91,16 @@ docker run -d \
   --name owncloud \
   --link mariadb:db \
   --link redis:redis \
-  -p 80:80 \
-  -p 443:443 \
+  -p ${HTTP_PORT}:80 \
+  -p ${HTTPS_PORT}:443 \
   -e OWNCLOUD_DOMAIN=${OWNCLOUD_DOMAIN} \
   -e OWNCLOUD_DB_TYPE=mysql \
   -e OWNCLOUD_DB_NAME=owncloud \
   -e OWNCLOUD_DB_USERNAME=owncloud \
   -e OWNCLOUD_DB_PASSWORD=owncloud \
   -e OWNCLOUD_DB_HOST=db \
-  -e OWNCLOUD_ADMIN_USERNAME=${OWNCLOUD_ADMIN_USERNAME} \
-  -e OWNCLOUD_ADMIN_PASSWORD=${OWNCLOUD_ADMIN_PASSWORD} \
+  -e OWNCLOUD_ADMIN_USERNAME=${ADMIN_USERNAME} \
+  -e OWNCLOUD_ADMIN_PASSWORD=${ADMIN_PASSWORD} \
   -e OWNCLOUD_REDIS_ENABLED=true \
   -e OWNCLOUD_REDIS_HOST=redis \
   -e OWNCLOUD_LICENSE_KEY=${OWNCLOUD_LICENSE} \
@@ -104,17 +111,17 @@ docker run -d \
 
 ### Launch with `docker-compose`
 
-The installation of `docker-compose` is not covered by these instructions, please follow the [official installation instructions](https://docs.docker.com/compose/install/). After the installation of `docker-compose` you can continue with the following commands to start the ownCloud stack. First we are defining some required environment variables, then we are downloading the required `docker-compose.yml` file. The `.env` and `docker-compose.yml` are expected in the current working directory, when running `docker-compose` commands, for the ownCloud version you can choose any of the available tags:
+The installation of `docker-compose` is not covered by these instructions, please follow the [official installation instructions](https://docs.docker.com/compose/install/). Be aware that you must install version `1.12.0+`. After the installation of `docker-compose` you can continue with the following commands to start the ownCloud stack. First we are defining some required environment variables, then we are downloading the required `docker-compose.yml` file. The `.env` and `docker-compose.yml` are expected in the current working directory, when running `docker-compose` commands, for the ownCloud version you can choose any of the available tags:
 
 ```bash
-cat << EOF > .env
-VERSION=10.0
-DOMAIN=localhost
+cat << EOF >| .env
+OWNCLOUD_VERSION=10.0
+OWNCLOUD_DOMAIN=localhost
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=admin
 HTTP_PORT=80
 HTTPS_PORT=443
-LICENSE=your-enterprise-license
+OWNCLOUD_LICENSE=your-enterprise-license
 EOF
 
 wget -O docker-compose.yml https://raw.githubusercontent.com/owncloud-docker/enterprise/master/docker-compose.yml
@@ -180,5 +187,5 @@ MIT
 ## Copyright
 
 ```
-Copyright (c) 2017 Thomas Boerger <tboerger@owncloud.com>
+Copyright (c) 2018 Thomas Boerger <tboerger@owncloud.com>
 ```
