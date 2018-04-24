@@ -86,6 +86,8 @@ pipeline:
     pull: true
     secrets: [ slack_webhook ]
     channel: docker
+    template: >
+      *{{build.status}}* <{{build.link}}|{{repo.owner}}/{{repo.name}}#{{truncate build.commit 8}}> @ ${CORE_VERSION}
     when:
       local: false
       event: [ push ]
