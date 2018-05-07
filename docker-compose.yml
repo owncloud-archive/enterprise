@@ -34,7 +34,7 @@ services:
       - OWNCLOUD_REDIS_HOST=redis
       - OWNCLOUD_LICENSE_KEY=${OWNCLOUD_LICENSE}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/status.php"]
+      test: ["CMD", "/usr/bin/healthcheck"]
       interval: 30s
       timeout: 10s
       retries: 5
