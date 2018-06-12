@@ -39,10 +39,9 @@ To get an overview about the available versions please take a look at the [GitHu
 The available versions should be already pushed to our private registry, but in case you want to try a change locally you can always execute the following command (run from a cloned GitHub repository) to get an image built locally:
 
 ```
-wget https://username:password@customer.owncloud.com/owncloud/remote.php/webdav/ownCloud-Enterprise/ownCloud-10.0/oC-10.0.7/owncloud-enterprise-complete-10.0.7.tar.bz2
-wget https://github.com/owncloud/user_ldap/releases/download/0.10.0/user_ldap.tar.gz
+wget https://username:password@customer.owncloud.com/owncloud/remote.php/webdav/ownCloud-Enterprise/ownCloud-10.0/oC-10.0.8/owncloud-enterprise-complete-10.0.8.tar.bz2
 
-docker pull owncloud/base:latest
+docker pull owncloud/base:xenial
 docker build -t registry.owncloud.com/owncloud/enterprise:latest .
 ```
 
