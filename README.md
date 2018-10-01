@@ -8,7 +8,7 @@ This is the official ownCloud image for the enterprise edition, it is built from
 
 ## Versions
 
-To get an overview about the available versions please take a look at the [GitHub branches](https://github.com/owncloud-docker/server/branches/all) or our [Docker Hub tags](https://hub.docker.com/r/owncloud/server/tags/), these lists are always up to date. Please note that release candidates or alpha/beta versions are only temporary available, they will be removed after the final release of a version.
+To get an overview about the available versions please take a look at the [GitHub branches](https://github.com/owncloud-docker/enterprise/branches/all) or our [Docker Hub tags](https://hub.docker.com/r/owncloud/enterprise/tags/), these lists are always up to date. Please note that release candidates or alpha/beta versions are only temporary available, they will be removed after the final release of a version.
 
 
 ## Volumes
@@ -31,6 +31,7 @@ To get an overview about the available versions please take a look at the [GitHu
 ## Inherited environment variables
 
 * [owncloud/base](https://github.com/owncloud-docker/base#available-environment-variables)
+* [owncloud/php](https://github.com/owncloud-docker/php#available-environment-variables)
 * [owncloud/ubuntu](https://github.com/owncloud-docker/ubuntu#available-environment-variables)
 
 
@@ -39,7 +40,7 @@ To get an overview about the available versions please take a look at the [GitHu
 The available versions should be already pushed to our private registry, but in case you want to try a change locally you can always execute the following command (run from a cloned GitHub repository) to get an image built locally:
 
 ```
-wget https://username:password@customer.owncloud.com/owncloud/remote.php/webdav/ownCloud-Enterprise/ownCloud-10.0/oC-10.0.8/owncloud-enterprise-complete-10.0.8.tar.bz2
+wget https://username:password@customer.owncloud.com/owncloud/remote.php/webdav/ownCloud-Enterprise/ownCloud-10.0/oC-10.0.10/owncloud-enterprise-complete-10.0.10.tar.bz2
 
 docker pull owncloud/base:xenial
 docker build -t registry.owncloud.com/owncloud/enterprise:latest .
