@@ -15,8 +15,8 @@ pipeline:
     image: plugins/download:1
     pull: true
     secrets: [ download_username, download_password ]
-    source: https://download.owncloud.com/internal/${CORE_VERSION}/owncloud-enterprise-complete-${CORE_VERSION}.tar.bz2
-    sha256: ${CORE_CHECKSUM}
+    source: https://download.owncloud.com/internal/10.0.10/owncloud-enterprise-complete-10.0.10.tar.bz2
+    sha256: 02838a2a880e70fd4eaf4a8d53f3a228b061fed88f69d2bdb9e683b9225de311
 
   wait:
     image: owncloud/ubuntu:latest
@@ -30,7 +30,7 @@ pipeline:
     environment:
       - DOCKER_HOST=tcp://docker:2375
     commands:
-      - docker build -t registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}-${DRONE_JOB_NUMBER} .
+      - docker build -t registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} .
 
   server:
     image: toolhippie/docker:latest
@@ -40,7 +40,7 @@ pipeline:
     environment:
       - DOCKER_HOST=tcp://docker:2375
     commands:
-      - docker run -p 8000:80 -e OWNCLOUD_LICENSE_KEY registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}-${DRONE_JOB_NUMBER}
+      - docker run -p 8000:80 -e OWNCLOUD_LICENSE_KEY registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}
 
   test:
     image: owncloud/ubuntu:latest
@@ -57,7 +57,7 @@ pipeline:
       - DOCKER_HOST=tcp://docker:2375
     commands:
       - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin registry.owncloud.com
-      - docker push registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}-${DRONE_JOB_NUMBER}
+      - docker push registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}
     when:
       event: [ push, pull_request ]
 
@@ -73,7 +73,7 @@ pipeline:
       - CLAIR_ADDR=clair.owncloud.com
       - CLAIR_OUTPUT=High
     commands:
-      - klar registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}-${DRONE_JOB_NUMBER}
+      - klar registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}
     when:
       event: [ push, pull_request ]
 
@@ -85,23 +85,25 @@ pipeline:
       - DOCKER_HOST=tcp://docker:2375
     commands:
       - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin registry.owncloud.com
-      - |
-        for IMAGE in ${IMAGE_TAGS}; do
-          docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}-${DRONE_JOB_NUMBER} registry.owncloud.com/owncloud/enterprise:$IMAGE
-          docker push registry.owncloud.com/owncloud/enterprise:$IMAGE
-        done
+      - docker tag owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} owncloud/enterprise:latest
+      - docker push owncloud/enterprise:latest
+      - docker tag owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} owncloud/enterprise:10.0
+      - docker push owncloud/enterprise:10.0
+      - docker tag owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} owncloud/enterprise:10.0.10
+      - docker push owncloud/enterprise:10.0.10
     when:
       event: [ push ]
 
-  cleanup:
-    image: toolhippie/reg:latest
-    pull: true
-    secrets: [ docker_username, docker_password ]
-    commands:
-      - reg rm --username $DOCKER_USERNAME --password $DOCKER_PASSWORD registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}-${DRONE_JOB_NUMBER}
-    when:
-      event: [ push, pull_request ]
-      status: [ success, failure ]
+  # FIXME: currently it removes the built image as well.
+  # cleanup:
+  #   image: toolhippie/reg:latest
+  #   pull: true
+  #   secrets: [ docker_username, docker_password ]
+  #   commands:
+  #     - reg rm --username $DOCKER_USERNAME --password $DOCKER_PASSWORD registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}
+  #   when:
+  #     event: [ push, pull_request ]
+  #     status: [ success, failure ]
 
   microbadger:
     image: plugins/webhook:1
@@ -124,37 +126,3 @@ pipeline:
 services:
   docker:
     image: docker:18.04-dind
-
-matrix:
-  include:
-    - CORE_VERSION: 10.0.9
-      CORE_CHECKSUM: 0f8f6f64d203a185c06a909caf1d6f5f083681f0a69c183cad296b8e801e0b75
-      IMAGE_TAGS: 10.0.9 10.0 latest
-
-    - CORE_VERSION: 10.0.8
-      CORE_CHECKSUM: 7cb6588bb7752ce659d9e117cd5c573bdd240b0be305526e7ca60e9187c9ddb9
-      IMAGE_TAGS: 10.0.8
-
-    - CORE_VERSION: 10.0.7
-      CORE_CHECKSUM: 9d422071d43e9a42e4f036ba1a664ca3d8dbb2164f8eb40b96742aa63059b27c
-      IMAGE_TAGS: 10.0.7
-
-    - CORE_VERSION: 10.0.4
-      CORE_CHECKSUM: ca82d4554e0cfbae5fffe407c6c327705ec532ba916adef0667081c151cd4395
-      IMAGE_TAGS: 10.0.4
-
-    - CORE_VERSION: 10.0.3
-      CORE_CHECKSUM: 063d854f7806ae17ded3506f034d5366e06a06254caf39ba01cb66f8b42bbc30
-      IMAGE_TAGS: 10.0.3
-
-    - CORE_VERSION: 10.0.2
-      CORE_CHECKSUM: dae33da6633b04f25bbf955edf36881b2a7d452da4d2657df0a08e3d9cb18524
-      IMAGE_TAGS: 10.0.2
-
-    - CORE_VERSION: 10.0.1
-      CORE_CHECKSUM: 827394b91d823668e20481844f3505991914b8bbade6a2f12ac0cb9affb20fd1
-      IMAGE_TAGS: 10.0.1
-
-    - CORE_VERSION: 10.0.0
-      CORE_CHECKSUM: 81dacdf6940391c9625807606455034324b6e53e1cb4508b25a3dc6150feb63b
-      IMAGE_TAGS: 10.0.0
