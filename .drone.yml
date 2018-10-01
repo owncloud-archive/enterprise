@@ -12,7 +12,7 @@ clone:
 
 pipeline:
   tarball:
-    image: plugins/download:latest
+    image: plugins/download:1
     pull: true
     secrets: [ download_username, download_password ]
     source: https://download.owncloud.com/internal/${CORE_VERSION}/owncloud-enterprise-complete-${CORE_VERSION}.tar.bz2
@@ -30,7 +30,7 @@ pipeline:
     environment:
       - DOCKER_HOST=tcp://docker:2375
     commands:
-      - docker build -t owncloud/enterprise:latest .
+      - docker build -t registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}-${DRONE_JOB_NUMBER} .
 
   server:
     image: toolhippie/docker:latest
@@ -40,7 +40,7 @@ pipeline:
     environment:
       - DOCKER_HOST=tcp://docker:2375
     commands:
-      - docker run -p 8000:80 -e OWNCLOUD_LICENSE_KEY owncloud/enterprise:latest
+      - docker run -p 8000:80 -e OWNCLOUD_LICENSE_KEY registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}-${DRONE_JOB_NUMBER}
 
   test:
     image: owncloud/ubuntu:latest
@@ -49,6 +49,34 @@ pipeline:
       - wait-for-it -t 600 docker:8000
       - curl -sSf http://docker:8000/status.php
 
+  prepublish:
+    image: toolhippie/docker:latest
+    pull: true
+    secrets: [ docker_username, docker_password ]
+    environment:
+      - DOCKER_HOST=tcp://docker:2375
+    commands:
+      - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin registry.owncloud.com
+      - docker push registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}-${DRONE_JOB_NUMBER}
+    when:
+      event: [ push, pull_request ]
+
+  clair:
+    image: toolhippie/klar:latest
+    pull: true
+    secrets:
+      - source: docker_username
+        target: docker_user
+      - source: docker_password
+        target: docker_password
+    environment:
+      - CLAIR_ADDR=clair.owncloud.com
+      - CLAIR_OUTPUT=High
+    commands:
+      - klar registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}-${DRONE_JOB_NUMBER}
+    when:
+      event: [ push, pull_request ]
+
   publish:
     image: toolhippie/docker:latest
     pull: true
@@ -56,14 +84,24 @@ pipeline:
     environment:
       - DOCKER_HOST=tcp://docker:2375
     commands:
-      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD registry.owncloud.com
+      - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin registry.owncloud.com
       - |
         for IMAGE in ${IMAGE_TAGS}; do
-          docker tag owncloud/enterprise:latest registry.owncloud.com/owncloud/enterprise:$IMAGE
+          docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}-${DRONE_JOB_NUMBER} registry.owncloud.com/owncloud/enterprise:$IMAGE
           docker push registry.owncloud.com/owncloud/enterprise:$IMAGE
         done
     when:
       event: [ push ]
+
+  cleanup:
+    image: toolhippie/reg:latest
+    pull: true
+    secrets: [ docker_username, docker_password ]
+    commands:
+      - reg rm --username $DOCKER_USERNAME --password $DOCKER_PASSWORD registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}-${DRONE_JOB_NUMBER}
+    when:
+      event: [ push, pull_request ]
+      status: [ success, failure ]
 
   microbadger:
     image: plugins/webhook:1
@@ -78,8 +116,6 @@ pipeline:
     pull: true
     secrets: [ slack_webhook ]
     channel: docker
-    template: >
-      *{{build.status}}* <{{build.link}}|{{repo.owner}}/{{repo.name}}#{{truncate build.commit 8}}> @ ${CORE_VERSION}
     when:
       local: false
       event: [ push ]
