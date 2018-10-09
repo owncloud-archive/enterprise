@@ -87,10 +87,14 @@ pipeline:
       - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin registry.owncloud.com
       - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:latest
       - docker push registry.owncloud.com/owncloud/enterprise:latest
-      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.0
-      - docker push registry.owncloud.com/owncloud/enterprise:10.0
+      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:latest-$(date '+%Y%m%d')
+      - docker push registry.owncloud.com/owncloud/enterprise:latest-$(date '+%Y%m%d')
       - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.0.10
       - docker push registry.owncloud.com/owncloud/enterprise:10.0.10
+      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.0.10-$(date '+%Y%m%d')
+      - docker push registry.owncloud.com/owncloud/enterprise:10.0.10-$(date '+%Y%m%d')
+      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.0
+      - docker push registry.owncloud.com/owncloud/enterprise:10.0
     when:
       event: [ push ]
 
