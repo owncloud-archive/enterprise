@@ -18,8 +18,7 @@ To get an overview about the available versions please take a look at the [GitHu
 
 ## Ports
 
-* 80
-* 443
+* 8080
 
 
 ## Available environment variables
@@ -81,7 +80,6 @@ export OWNCLOUD_DOMAIN=localhost
 export ADMIN_USERNAME=admin
 export ADMIN_PASSWORD=admin
 export HTTP_PORT=80
-export HTTPS_PORT=443
 export OWNCLOUD_LICENSE=your-enterprise-license
 
 docker volume create owncloud_files
@@ -90,8 +88,7 @@ docker run -d \
   --name owncloud \
   --link mariadb:db \
   --link redis:redis \
-  -p ${HTTP_PORT}:80 \
-  -p ${HTTPS_PORT}:443 \
+  -p ${HTTP_PORT}:8080 \
   -e OWNCLOUD_DOMAIN=${OWNCLOUD_DOMAIN} \
   -e OWNCLOUD_DB_TYPE=mysql \
   -e OWNCLOUD_DB_NAME=owncloud \
@@ -119,7 +116,6 @@ OWNCLOUD_DOMAIN=localhost
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=admin
 HTTP_PORT=80
-HTTPS_PORT=443
 OWNCLOUD_LICENSE=your-enterprise-license
 EOF
 
