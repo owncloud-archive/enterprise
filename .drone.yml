@@ -15,8 +15,8 @@ pipeline:
     image: plugins/download:1
     pull: true
     secrets: [ download_username, download_password ]
-    source: https://download.owncloud.com/internal/10.0.10/owncloud-enterprise-complete-10.0.10.tar.bz2
-    sha256: 02838a2a880e70fd4eaf4a8d53f3a228b061fed88f69d2bdb9e683b9225de311
+    source: https://download.owncloud.com/internal/10.0.10.1/owncloud-enterprise-complete-10.0.10.1.tar.bz2
+    sha256: 1188ab97aaeb80d9c841a525b5b6fd7683f2bf08f5d52799fe56d2056456ce76
 
   wait:
     image: owncloud/ubuntu:latest
