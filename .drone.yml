@@ -15,8 +15,8 @@ pipeline:
     image: plugins/download:1
     pull: true
     secrets: [ download_username, download_password ]
-    source: https://download.owncloud.com/internal/10.0.10.1/owncloud-enterprise-complete-10.0.10.1.tar.bz2
-    sha256: 1188ab97aaeb80d9c841a525b5b6fd7683f2bf08f5d52799fe56d2056456ce76
+    source: https://download.owncloud.com/internal/10.1.0/owncloud-enterprise-complete-10.1.0.tar.bz2
+    sha256: 9032c5fafc3917dbea124e4795bbee4109551265ef127f298ca39fac168413d1
 
   wait:
     image: owncloud/ubuntu:latest
@@ -194,12 +194,12 @@ pipeline:
       - docker push registry.owncloud.com/owncloud/enterprise:latest
       - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:latest-$(date '+%Y%m%d')
       - docker push registry.owncloud.com/owncloud/enterprise:latest-$(date '+%Y%m%d')
-      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.0.10
-      - docker push registry.owncloud.com/owncloud/enterprise:10.0.10
-      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.0.10-$(date '+%Y%m%d')
-      - docker push registry.owncloud.com/owncloud/enterprise:10.0.10-$(date '+%Y%m%d')
-      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.0
-      - docker push registry.owncloud.com/owncloud/enterprise:10.0
+      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.1.0
+      - docker push registry.owncloud.com/owncloud/enterprise:10.1.0
+      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.1.0-$(date '+%Y%m%d')
+      - docker push registry.owncloud.com/owncloud/enterprise:10.1.0-$(date '+%Y%m%d')
+      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.1
+      - docker push registry.owncloud.com/owncloud/enterprise:10.1
     when:
       event: [ push ]
 
