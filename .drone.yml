@@ -16,7 +16,7 @@ pipeline:
     pull: true
     secrets: [ download_username, download_password ]
     source: https://download.owncloud.com/internal/10.2.0RC2/owncloud-enterprise-complete-10.2.0RC2.tar.bz2
-    sha256: 2f4660f2a908889adcf4f20056c1248912931f0b69f7653130e5a1f437ff2c4c
+    sha256: b3d343ef9cedd9a95d57e75725b8977c02abbfabad38c1675cd569c4b26fc8a5
 
   wait:
     image: owncloud/ubuntu:latest
