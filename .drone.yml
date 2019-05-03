@@ -3,7 +3,7 @@ workspace:
   path: src/github.com/owncloud-docker/enterprise
 
 branches:
-  - master
+  - testing
 
 clone:
   git:
