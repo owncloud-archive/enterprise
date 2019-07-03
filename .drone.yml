@@ -15,8 +15,8 @@ pipeline:
     image: plugins/download:1
     pull: true
     secrets: [ download_username, download_password ]
-    source: https://download.owncloud.com/internal/10.2.0/owncloud-enterprise-complete-20190516.tar.bz2
-    sha256: 79fd7b0abccce393cea31a3895fb5ea23be0f97d4e4eba4c8e5fcd14b1243d14
+    source: https://download.owncloud.com/internal/10.2.1/owncloud-enterprise-complete-20190703.tar.bz2
+    sha256: b4b4591af57b5b8ab40299f0abde593371269b9a4bac0eb0aba27cd41e0485ab
 
   wait:
     image: owncloud/ubuntu:latest
@@ -194,10 +194,10 @@ pipeline:
       - docker push registry.owncloud.com/owncloud/enterprise:latest
       - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:latest-$(date '+%Y%m%d')
       - docker push registry.owncloud.com/owncloud/enterprise:latest-$(date '+%Y%m%d')
-      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.2.0
-      - docker push registry.owncloud.com/owncloud/enterprise:10.2.0
-      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.2.0-$(date '+%Y%m%d')
-      - docker push registry.owncloud.com/owncloud/enterprise:10.2.0-$(date '+%Y%m%d')
+      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.2.1
+      - docker push registry.owncloud.com/owncloud/enterprise:10.2.1
+      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.2.1-$(date '+%Y%m%d')
+      - docker push registry.owncloud.com/owncloud/enterprise:10.2.1-$(date '+%Y%m%d')
       - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.2
       - docker push registry.owncloud.com/owncloud/enterprise:10.2
     when:
