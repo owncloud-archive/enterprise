@@ -1,5 +1,17 @@
 # Changelog
 
+## 2019-07-29
+
+* Added
+  * Link to docuemntation for installation
+* Removed
+  * Drop docker and docker-compose examples
+
+## 2018-10-18
+
+* Changed
+  * Update tarball to 10.0.10.1
+
 ## 2018-10-10
 
 * Changed
