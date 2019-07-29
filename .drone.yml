@@ -15,7 +15,7 @@ pipeline:
     image: plugins/download:1
     pull: true
     secrets: [ download_username, download_password ]
-    source: https://download.owncloud.com/internal/10.2.0RC2/owncloud-enterprise-complete-10.2.0RC2.tar.bz2
+    source: https://download.owncloud.com/internal/10.2.1RC3/owncloud-enterprise-complete-10.2.1RC3.tar.bz2
     sha256: b3d343ef9cedd9a95d57e75725b8977c02abbfabad38c1675cd569c4b26fc8a5
 
   wait:
@@ -199,8 +199,8 @@ pipeline:
       - DOCKER_HOST=tcp://docker:2375
     commands:
       - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin registry.owncloud.com
-      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.2.0-rc2
-      - docker push registry.owncloud.com/owncloud/enterprise:10.2.0-rc2
+      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.2.1-rc3
+      - docker push registry.owncloud.com/owncloud/enterprise:10.2.1-rc3
     when:
       event: [ push ]
 
