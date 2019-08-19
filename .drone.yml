@@ -15,8 +15,8 @@ pipeline:
     image: plugins/download:1
     pull: true
     secrets: [ download_username, download_password ]
-    source: https://download.owncloud.com/internal/10.2.1RC3/owncloud-enterprise-complete-10.2.1RC3.tar.bz2
-    sha256: 718ee20e138222de6768cd140aaa847fb321503203b4070c4a076bd626e33cec
+    source: https://download.owncloud.com/internal/testing/owncloud-enterprise-complete-10.3.0alpha.tar.bz2
+    sha256: 35e16c70746f0a5fa6ca1f1d8c5bad164cb6770cace220200b91246fb67aaab7
 
   wait:
     image: owncloud/ubuntu:latest
@@ -37,7 +37,7 @@ pipeline:
     pull: true
     commands:
       - mkdir -p /drone/owncloud-smoketest
-      - wget -qO- "https://download.owncloud.org/community/owncloud-daily-stable10-qa.tar.bz2" | tar -xj -C /drone/owncloud-smoketest --strip 1
+      - wget -qO- "https://download.owncloud.org/community/testing/owncloud-10.3.0alpha-qa.tar.bz2" | tar -xj -C /drone/owncloud-smoketest --strip 1
       - cat /drone/owncloud-smoketest/version.php
       - mkdir -p /drone/owncloud-smoketest/vendor-bin/behat
       - wget https://raw.githubusercontent.com/owncloud/core/stable10/vendor-bin/behat/composer.json -O /drone/owncloud-smoketest/vendor-bin/behat/composer.json
@@ -71,12 +71,12 @@ pipeline:
       - MYSQL_PASSWORD=owncloud
       - MYSQL_DATABASE=owncloud
     commands:
-      - |
-        docker run --network=oc --name db --network-alias db \
-        -e MYSQL_ROOT_PASSWORD \
-        -e MYSQL_USER \
-        -e MYSQL_PASSWORD \
-        -e MYSQL_DATABASE \
+      - >
+        docker run --network=oc --name db --network-alias db
+        -e MYSQL_ROOT_PASSWORD
+        -e MYSQL_USER
+        -e MYSQL_PASSWORD
+        -e MYSQL_DATABASE
         library/mysql:5.7
 
   smoketest-mailhog:
@@ -104,21 +104,21 @@ pipeline:
       - OWNCLOUD_APPS_INSTALL=https://github.com/owncloud/testing/releases/download/latest/testing.tar.gz
       - OWNCLOUD_APPS_ENABLE=testing
     commands:
-      - |
-        docker run \
-        --network=oc \
-        --name owncloud \
-        -e DEBUG \
-        -p 8000:8080 \
-        -e OWNCLOUD_APPS_INSTALL \
-        -e OWNCLOUD_APPS_ENABLE \
-        -e OWNCLOUD_REDIS_HOST \
-        -e OWNCLOUD_DB_TYPE \
-        -e OWNCLOUD_DB_NAME \
-        -e OWNCLOUD_DB_USERNAME \
-        -e OWNCLOUD_DB_PASSWORD \
-        -e OWNCLOUD_DB_HOST \
-        --network=oc \
+      - >
+        docker run
+        --network=oc
+        --name owncloud
+        -e DEBUG
+        -p 8000:8080
+        -e OWNCLOUD_APPS_INSTALL
+        -e OWNCLOUD_APPS_ENABLE
+        -e OWNCLOUD_REDIS_HOST
+        -e OWNCLOUD_DB_TYPE
+        -e OWNCLOUD_DB_NAME
+        -e OWNCLOUD_DB_USERNAME
+        -e OWNCLOUD_DB_PASSWORD
+        -e OWNCLOUD_DB_HOST
+        --network=oc
         registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER}
 
   wait-for-owncloud:
@@ -199,8 +199,8 @@ pipeline:
       - DOCKER_HOST=tcp://docker:2375
     commands:
       - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin registry.owncloud.com
-      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.2.1-rc3
-      - docker push registry.owncloud.com/owncloud/enterprise:10.2.1-rc3
+      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.3.0-alpha1
+      - docker push registry.owncloud.com/owncloud/enterprise:10.3.0-alpha1
     when:
       event: [ push ]
 
@@ -227,5 +227,5 @@ services:
     image: docker:18.04-dind
 
   selenium:
-    image: selenium/standalone-chrome-debug:latest
+    image: selenium/standalone-chrome-debug:3.141.59-oxygen
     pull: true
