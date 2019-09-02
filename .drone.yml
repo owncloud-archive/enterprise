@@ -15,8 +15,8 @@ pipeline:
     image: plugins/download:1
     pull: true
     secrets: [ download_username, download_password ]
-    source: https://download.owncloud.com/internal/testing/owncloud-enterprise-complete-10.3.0alpha.tar.bz2
-    sha256: 35e16c70746f0a5fa6ca1f1d8c5bad164cb6770cace220200b91246fb67aaab7
+    source: https://download.owncloud.com/internal/testing/owncloud-enterprise-complete-10.3.0alpha2.tar.bz2
+    sha256: fe66473b3a6dc400117937c1c1e80d8e2ad07673ad1e48dd8e77382c85230e9a
 
   wait:
     image: owncloud/ubuntu:latest
@@ -37,10 +37,10 @@ pipeline:
     pull: true
     commands:
       - mkdir -p /drone/owncloud-smoketest
-      - wget -qO- "https://download.owncloud.org/community/testing/owncloud-10.3.0alpha-qa.tar.bz2" | tar -xj -C /drone/owncloud-smoketest --strip 1
+      - wget -qO- "https://download.owncloud.org/community/testing/owncloud-10.3.0alpha2-qa.tar.bz2" | tar -xj -C /drone/owncloud-smoketest --strip 1
       - cat /drone/owncloud-smoketest/version.php
       - mkdir -p /drone/owncloud-smoketest/vendor-bin/behat
-      - wget https://raw.githubusercontent.com/owncloud/core/stable10/vendor-bin/behat/composer.json -O /drone/owncloud-smoketest/vendor-bin/behat/composer.json
+      - wget https://raw.githubusercontent.com/owncloud/core/master/vendor-bin/behat/composer.json -O /drone/owncloud-smoketest/vendor-bin/behat/composer.json
       - cd /drone/owncloud-smoketest/vendor-bin/behat/ && composer install
 
   smoketest-create-docker-network:
@@ -199,8 +199,8 @@ pipeline:
       - DOCKER_HOST=tcp://docker:2375
     commands:
       - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin registry.owncloud.com
-      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.3.0-alpha1
-      - docker push registry.owncloud.com/owncloud/enterprise:10.3.0-alpha1
+      - docker tag registry.owncloud.com/owncloud/enterprise:${DRONE_COMMIT_SHA}-${DRONE_BUILD_NUMBER} registry.owncloud.com/owncloud/enterprise:10.3.0-alpha2
+      - docker push registry.owncloud.com/owncloud/enterprise:10.3.0-alpha2
     when:
       event: [ push ]
 
