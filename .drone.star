@@ -369,10 +369,10 @@ def manifest(config):
         'pull': 'always',
         'settings': {
           'username': {
-            'from_secret': 'public_username',
+            'from_secret': 'private_username',
           },
           'password': {
-            'from_secret': 'public_password',
+            'from_secret': 'private_password',
           },
           'spec': '%s/manifest.yml' % config['version']['base'],
           'ignore_missing': 'true',
