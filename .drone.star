@@ -10,6 +10,15 @@ def main(ctx):
       'tags': [],
     },
     {
+      'value': '10.3.2-rc1',
+      'qa': 'https://download.owncloud.com/internal/10.3.2RC1/testing/owncloud-enterprise-complete-10.3.2RC1-qa.tar.bz2',
+      'tarball': 'https://download.owncloud.com/internal/10.3.2RC1/testing/owncloud-enterprise-complete-10.3.2RC1.tar.bz2',
+      'tarball_sha': 'b08f714b8ba53bac68cadd0b3b33dadb0f3ee8cea5d8744180a84d62b11ebefe',
+      'php': '7.3',
+      'base': 'v19.10',
+      'tags': [],
+    },
+    {
       'value': '10.3.1',
       'qa': 'https://download.owncloud.com/internal/10.3.1/owncloud-enterprise-complete-20191106-qa.tar.bz2',
       'tarball': 'https://download.owncloud.com/internal/10.3.1/owncloud-enterprise-complete-20191106.tar.bz2',
