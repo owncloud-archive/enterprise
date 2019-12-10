@@ -2,27 +2,18 @@ def main(ctx):
   versions = [
     {
       'value': 'latest',
-      'qa': 'https://download.owncloud.com/internal/10.3.1/owncloud-enterprise-complete-20191106-qa.tar.bz2',
-      'tarball': 'https://download.owncloud.com/internal/10.3.1/owncloud-enterprise-complete-20191106.tar.bz2',
-      'tarball_sha': '9c7c9db06ae2a0598000274da29e7a933cc4ec1e444d83f604c67400b1e92120',
+      'qa': 'https://download.owncloud.com/internal/10.3.2/testing/owncloud-enterprise-complete-20191205-qa.tar.bz2',
+      'tarball': 'https://download.owncloud.com/internal/10.3.2/owncloud-enterprise-complete-20191205.tar.bz2',
+      'tarball_sha': 'b3d880b3d1aec6834527fa3e671cf931c9d3b42150f68071ed29021e724b54f7',
       'php': '7.3',
       'base': 'v19.10',
       'tags': [],
     },
     {
-      'value': '10.3.2-rc1',
-      'qa': 'https://download.owncloud.com/internal/10.3.2RC1/testing/owncloud-enterprise-complete-10.3.2RC1-qa.tar.bz2',
-      'tarball': 'https://download.owncloud.com/internal/10.3.2RC1/testing/owncloud-enterprise-complete-10.3.2RC1.tar.bz2',
-      'tarball_sha': 'b08f714b8ba53bac68cadd0b3b33dadb0f3ee8cea5d8744180a84d62b11ebefe',
-      'php': '7.3',
-      'base': 'v19.10',
-      'tags': [],
-    },
-    {
-      'value': '10.3.1',
-      'qa': 'https://download.owncloud.com/internal/10.3.1/owncloud-enterprise-complete-20191106-qa.tar.bz2',
-      'tarball': 'https://download.owncloud.com/internal/10.3.1/owncloud-enterprise-complete-20191106.tar.bz2',
-      'tarball_sha': '9c7c9db06ae2a0598000274da29e7a933cc4ec1e444d83f604c67400b1e92120',
+      'value': '10.3.2',
+      'qa': 'https://download.owncloud.com/internal/10.3.2/testing/owncloud-enterprise-complete-20191205-qa.tar.bz2',
+      'tarball': 'https://download.owncloud.com/internal/10.3.2/owncloud-enterprise-complete-20191205.tar.bz2',
+      'tarball_sha': 'b3d880b3d1aec6834527fa3e671cf931c9d3b42150f68071ed29021e724b54f7',
       'php': '7.3',
       'base': 'v19.10',
       'tags': ['10.3', '10'],
@@ -654,7 +645,7 @@ def api(config):
     'pull': 'always',
     'commands': [
       'mkdir -p vendor-bin/behat',
-      'wget -O vendor-bin/behat/composer.json https://raw.githubusercontent.com/owncloud/core/master/vendor-bin/behat/composer.json',
+      'wget -O vendor-bin/behat/composer.json https://raw.githubusercontent.com/owncloud/core/%s/vendor-bin/behat/composer.json' % versionize(config['version']['value']),
       'cd vendor-bin/behat/ && composer install',
     ],
   },
@@ -709,7 +700,7 @@ def ui(config):
     'pull': 'always',
     'commands': [
       'mkdir -p vendor-bin/behat',
-      'wget -O vendor-bin/behat/composer.json https://raw.githubusercontent.com/owncloud/core/master/vendor-bin/behat/composer.json',
+      'wget -O vendor-bin/behat/composer.json https://raw.githubusercontent.com/owncloud/core/%s/vendor-bin/behat/composer.json' % versionize(config['version']['value']),
       'cd vendor-bin/behat/ && composer install',
     ],
   },
@@ -787,3 +778,9 @@ def cleanup(config):
       'reg rm --username $DOCKER_USER --password $DOCKER_PASSWORD registry.drone.owncloud.com/owncloud/enterprise:%s' % config['internal'],
     ],
   }]
+
+def versionize(version):
+    if version == 'latest':
+        return 'master'
+    else:
+        return 'v%s' % (version.replace("rc", "RC").replace("-", ""))
