@@ -9,6 +9,17 @@ def main(ctx):
       'base': 'v19.10',
       'tags': [],
     },
+
+    {
+      'value': '10.4.0-rc1',
+      'qa': 'https://download.owncloud.com/internal/10.4.0RC1/testing/owncloud-enterprise-complete-10.4.0RC1-qa.tar.bz2',
+      'tarball': 'https://download.owncloud.com/internal/10.4.0RC1/testing/owncloud-enterprise-complete-10.4.0RC1.tar.bz2',
+      'tarball_sha': '2e22e76b42af4a7981b1c63995f0fdffd8c22bc7a9684ed2f1c7c4bdda9394d5',
+      'php': '7.3',
+      'base': 'v19.10',
+      'tags': [],
+    },
+
     {
       'value': '10.3.2',
       'qa': 'https://download.owncloud.com/internal/10.3.2/testing/owncloud-enterprise-complete-20191205-qa.tar.bz2',
@@ -18,6 +29,7 @@ def main(ctx):
       'base': 'v19.10',
       'tags': ['10.3', '10'],
     },
+
     {
       'value': '10.2.1',
       'qa': 'https://download.owncloud.com/internal/10.2.1/owncloud-enterprise-complete-20190703-qa.tar.bz2',
