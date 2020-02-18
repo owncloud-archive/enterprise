@@ -6,9 +6,21 @@ def main(ctx):
       'tarball': 'https://download.owncloud.com/internal/10.3.2/owncloud-enterprise-complete-20191205.tar.bz2',
       'tarball_sha': 'b3d880b3d1aec6834527fa3e671cf931c9d3b42150f68071ed29021e724b54f7',
       'php': '7.3',
+      'behat_version': '10.3.2',
       'base': 'v19.10',
       'tags': [],
     },
+
+    {
+      'value': '10.4.0-rc3',
+      'qa': 'https://download.owncloud.com/internal/10.4.0RC3/testing/owncloud-enterprise-complete-10.4.0RC3-qa.tar.bz2',
+      'tarball': 'https://download.owncloud.com/internal/10.4.0RC3/testing/owncloud-enterprise-complete-10.4.0RC3.tar.bz2',
+      'tarball_sha': '58b8a7215165a023072644a8e1f48ec212a1424abc4692be899ae8d30fd72926',
+      'php': '7.3',
+      'base': 'v19.10',
+      'tags': [],
+    },
+
     {
       'value': '10.3.2',
       'qa': 'https://download.owncloud.com/internal/10.3.2/testing/owncloud-enterprise-complete-20191205-qa.tar.bz2',
@@ -18,6 +30,7 @@ def main(ctx):
       'base': 'v19.10',
       'tags': ['10.3', '10'],
     },
+
     {
       'value': '10.2.1',
       'qa': 'https://download.owncloud.com/internal/10.2.1/owncloud-enterprise-complete-20190703-qa.tar.bz2',
@@ -645,7 +658,7 @@ def api(config):
     'pull': 'always',
     'commands': [
       'mkdir -p vendor-bin/behat',
-      'wget -O vendor-bin/behat/composer.json https://raw.githubusercontent.com/owncloud/core/%s/vendor-bin/behat/composer.json' % versionize(config['version']['value']),
+      'wget -O vendor-bin/behat/composer.json https://raw.githubusercontent.com/owncloud/core/%s/vendor-bin/behat/composer.json' % versionize(config['version']),
       'cd vendor-bin/behat/ && composer install',
     ],
   },
@@ -700,7 +713,7 @@ def ui(config):
     'pull': 'always',
     'commands': [
       'mkdir -p vendor-bin/behat',
-      'wget -O vendor-bin/behat/composer.json https://raw.githubusercontent.com/owncloud/core/%s/vendor-bin/behat/composer.json' % versionize(config['version']['value']),
+      'wget -O vendor-bin/behat/composer.json https://raw.githubusercontent.com/owncloud/core/%s/vendor-bin/behat/composer.json' % versionize(config['version']),
       'cd vendor-bin/behat/ && composer install',
     ],
   },
@@ -780,7 +793,8 @@ def cleanup(config):
   }]
 
 def versionize(version):
-    if version == 'latest':
-        return 'master'
-    else:
-        return 'v%s' % (version.replace("rc", "RC").replace("-", ""))
+  if 'behat_version' in version:
+    raw_version = version['behat_version']
+  else:
+    raw_version = version['value']
+  return 'v%s' % (raw_version.replace("rc", "RC").replace("-", ""))
