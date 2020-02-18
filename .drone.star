@@ -12,10 +12,10 @@ def main(ctx):
     },
 
     {
-      'value': '10.4.0-rc2',
-      'qa': 'https://download.owncloud.com/internal/10.4.0RC2/testing/owncloud-enterprise-complete-10.4.0RC2-qa.tar.bz2',
-      'tarball': 'https://download.owncloud.com/internal/10.4.0RC2/testing/owncloud-enterprise-complete-10.4.0RC2.tar.bz2',
-      'tarball_sha': '56db118919d14d93dd5de69eee8e6b89f51970fb79df43d02ad5c03ee9ec0270',
+      'value': '10.4.0-rc3',
+      'qa': 'https://download.owncloud.com/internal/10.4.0RC3/testing/owncloud-enterprise-complete-10.4.0RC3-qa.tar.bz2',
+      'tarball': 'https://download.owncloud.com/internal/10.4.0RC3/testing/owncloud-enterprise-complete-10.4.0RC3.tar.bz2',
+      'tarball_sha': '58b8a7215165a023072644a8e1f48ec212a1424abc4692be899ae8d30fd72926',
       'php': '7.3',
       'base': 'v19.10',
       'tags': [],
