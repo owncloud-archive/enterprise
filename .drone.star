@@ -6,7 +6,7 @@ def main(ctx):
       'tarball': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-10.4.0.tar.bz2',
       'tarball_sha': 'a6256666dfda0e2543e095bef94b3ca1b4b8203faf1a65b54dde727027b2759c',
       'php': '7.3',
-      'behat_version': '10.3.2',
+      'behat_version': '10.4.0',
       'base': 'v19.10',
       'tags': [],
     },
