@@ -2,23 +2,23 @@ def main(ctx):
   versions = [
     {
       'value': 'latest',
-      'qa': 'https://download.owncloud.com/internal/10.3.2/testing/owncloud-enterprise-complete-20191205-qa.tar.bz2',
-      'tarball': 'https://download.owncloud.com/internal/10.3.2/owncloud-enterprise-complete-20191205.tar.bz2',
-      'tarball_sha': 'b3d880b3d1aec6834527fa3e671cf931c9d3b42150f68071ed29021e724b54f7',
+      'qa': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-10.4.0-qa.tar.bz2',
+      'tarball': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-10.4.0.tar.bz2',
+      'tarball_sha': 'a6256666dfda0e2543e095bef94b3ca1b4b8203faf1a65b54dde727027b2759c',
       'php': '7.3',
-      'behat_version': '10.3.2',
+      'behat_version': '10.4.0',
       'base': 'v19.10',
       'tags': [],
     },
 
     {
-      'value': '10.4.0-rc3',
-      'qa': 'https://download.owncloud.com/internal/10.4.0RC3/testing/owncloud-enterprise-complete-10.4.0RC3-qa.tar.bz2',
-      'tarball': 'https://download.owncloud.com/internal/10.4.0RC3/testing/owncloud-enterprise-complete-10.4.0RC3.tar.bz2',
-      'tarball_sha': '58b8a7215165a023072644a8e1f48ec212a1424abc4692be899ae8d30fd72926',
+      'value': '10.4.0',
+      'qa': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-10.4.0-qa.tar.bz2',
+      'tarball': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-10.4.0.tar.bz2',
+      'tarball_sha': 'a6256666dfda0e2543e095bef94b3ca1b4b8203faf1a65b54dde727027b2759c',
       'php': '7.3',
       'base': 'v19.10',
-      'tags': [],
+      'tags': ['10.4', '10'],
     },
 
     {
@@ -28,18 +28,9 @@ def main(ctx):
       'tarball_sha': 'b3d880b3d1aec6834527fa3e671cf931c9d3b42150f68071ed29021e724b54f7',
       'php': '7.3',
       'base': 'v19.10',
-      'tags': ['10.3', '10'],
+      'tags': ['10.3'],
     },
 
-    {
-      'value': '10.2.1',
-      'qa': 'https://download.owncloud.com/internal/10.2.1/owncloud-enterprise-complete-20190703-qa.tar.bz2',
-      'tarball': 'https://download.owncloud.com/internal/10.2.1/owncloud-enterprise-complete-20190703.tar.bz2',
-      'tarball_sha': 'b4b4591af57b5b8ab40299f0abde593371269b9a4bac0eb0aba27cd41e0485ab',
-      'php': '7.0',
-      'base': 'v18.04',
-      'tags': ['10.2'],
-    },
   ]
 
   arches = [
