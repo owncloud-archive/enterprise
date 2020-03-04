@@ -8,10 +8,11 @@ For a guide how to get started with this Docker image please take a look at our 
 
 ## Versions
 
-* `latest` available as `registry.owncloud.com/owncloud/enterprise:latest`
-* `10.3.0` available as `registry.owncloud.com/owncloud/enterprise:10.3.0`, `registry.owncloud.com/owncloud/enterprise:10.3`,  `registry.owncloud.com/owncloud/enterprise:10`
-* `10.2.1` available as `registry.owncloud.com/owncloud/enterprise:10.2.1`, `registry.owncloud.com/owncloud/enterprise:10.2`
-* `10.2.0` available as `registry.owncloud.com/owncloud/enterprise:10.2.0`
+* `latest` available as `registry.owncloud.com/owncloud/enterprise:latest` (it's 10.4.0)
+* `10.4.0` available as `registry.owncloud.com/owncloud/enterprise:10.4.0`, `registry.owncloud.com/owncloud/enterprise:10.4`,  `registry.owncloud.com/owncloud/enterprise:10`
+* `10.3.2` available as `registry.owncloud.com/owncloud/enterprise:10.3.2`, `registry.owncloud.com/owncloud/enterprise:10.3`
+* `10.2.1` available as `registry.owncloud.com/owncloud/enterprise:10.2.1
+* ...`
 
 ## Volumes
 
