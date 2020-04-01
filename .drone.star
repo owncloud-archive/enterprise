@@ -9,6 +9,26 @@ def main(ctx):
       'base': 'v19.10',
       'tags': [],
     },
+    {
+      'value': 'latest',
+      'qa': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-20200304-qa.tar.bz2',
+      'tarball': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-20200304.tar.bz2',
+      'tarball_sha': 'f1e9ef86c6297bb31d0c7f749f7e662f70b33e8c3287a8f22fcb220f19359394',
+      'php': '7.3',
+      'behat_version': 'behat-10.4.0',
+      'base': 'v19.10',
+      'tags': [],
+    },
+    {
+      'value': '10.4.0',
+      'qa': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-20200304-qa.tar.bz2',
+      'tarball': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-20200304.tar.bz2',
+      'tarball_sha': 'f1e9ef86c6297bb31d0c7f749f7e662f70b33e8c3287a8f22fcb220f19359394',
+      'php': '7.3',
+      'behat_version': 'behat-10.4.0',
+      'base': 'v19.10',
+      'tags': ['10.4', '10'],
+    },
 
   ]
 
@@ -764,7 +784,6 @@ def cleanup(config):
 
 def versionize(version):
   if 'behat_version' in version:
-    raw_version = version['behat_version']
+    return version['behat_version']
   else:
-    raw_version = version['value']
-  return 'v%s' % (raw_version.replace("rc", "RC").replace("-", ""))
+    return 'v%s' % (version['value'].replace("rc", "RC").replace("-", ""))
