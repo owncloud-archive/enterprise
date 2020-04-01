@@ -1,34 +1,13 @@
 def main(ctx):
   versions = [
     {
-      'value': 'latest',
-      'qa': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-20200304-qa.tar.bz2',
-      'tarball': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-20200304.tar.bz2',
-      'tarball_sha': 'f1e9ef86c6297bb31d0c7f749f7e662f70b33e8c3287a8f22fcb220f19359394',
+      'value': '10.4.1-rc1',
+      'qa': 'https://download.owncloud.com/internal/10.4.1RC1/testing/owncloud-enterprise-complete-10.4.1RC1-qa.tar.bz2',
+      'tarball': 'https://download.owncloud.com/internal/10.4.1RC1/testing/owncloud-enterprise-complete-10.4.1RC1.tar.bz2',
+      'tarball_sha': '74dd16338a8e87d4cf695ca15c5e376c264f4f9e7bd6ddbfdf09d8c422a7f2a2',
       'php': '7.3',
-      'behat_version': '10.4.0',
       'base': 'v19.10',
       'tags': [],
-    },
-
-    {
-      'value': '10.4.0',
-      'qa': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-20200304-qa.tar.bz2',
-      'tarball': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-20200304.tar.bz2',
-      'tarball_sha': 'f1e9ef86c6297bb31d0c7f749f7e662f70b33e8c3287a8f22fcb220f19359394',
-      'php': '7.3',
-      'base': 'v19.10',
-      'tags': ['10.4', '10'],
-    },
-
-    {
-      'value': '10.3.2',
-      'qa': 'https://download.owncloud.com/internal/10.3.2/testing/owncloud-enterprise-complete-20191205-qa.tar.bz2',
-      'tarball': 'https://download.owncloud.com/internal/10.3.2/owncloud-enterprise-complete-20191205.tar.bz2',
-      'tarball_sha': 'b3d880b3d1aec6834527fa3e671cf931c9d3b42150f68071ed29021e724b54f7',
-      'php': '7.3',
-      'base': 'v19.10',
-      'tags': ['10.3'],
     },
 
   ]
