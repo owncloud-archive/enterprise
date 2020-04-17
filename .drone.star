@@ -1,35 +1,23 @@
 def main(ctx):
   versions = [
     {
-      'value': '10.4.1-rc2',
-      'qa': 'https://download.owncloud.com/internal/10.4.1RC2/testing/owncloud-enterprise-complete-10.4.1RC2-qa.tar.bz2',
-      'tarball': 'https://download.owncloud.com/internal/10.4.1RC2/testing/owncloud-enterprise-complete-10.4.1RC2.tar.bz2',
-      'tarball_sha': '99e4830a034012f2ab4adb2874625e12767d9c96cd2c208ae69dc47334d611d3',
+      'value': '10.4.1',
+      'qa': 'https://download.owncloud.com/internal/10.4.1/owncloud-enterprise-complete-20200414-qa.tar.bz2',
+      'tarball': 'https://download.owncloud.com/internal/10.4.1/owncloud-enterprise-complete-20200414.tar.bz2',
+      'tarball_sha': '3b50f4769d5e5522b3c4aa20d998e0c353aa16d2fda831a2522d790c322ce61d',
       'php': '7.3',
       'base': 'v19.10',
-      'tags': [],
+      'tags': ['10', '10.4'],
     },
     {
       'value': 'latest',
-      'qa': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-20200304-qa.tar.bz2',
-      'tarball': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-20200304.tar.bz2',
-      'tarball_sha': 'f1e9ef86c6297bb31d0c7f749f7e662f70b33e8c3287a8f22fcb220f19359394',
+      'qa': 'https://download.owncloud.com/internal/10.4.1/owncloud-enterprise-complete-20200414-qa.tar.bz2',
+      'tarball': 'https://download.owncloud.com/internal/10.4.1/owncloud-enterprise-complete-20200414.tar.bz2',
+      'tarball_sha': '3b50f4769d5e5522b3c4aa20d998e0c353aa16d2fda831a2522d790c322ce61d',
       'php': '7.3',
-      'behat_version': 'behat-10.4.0',
       'base': 'v19.10',
       'tags': [],
     },
-    {
-      'value': '10.4.0',
-      'qa': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-20200304-qa.tar.bz2',
-      'tarball': 'https://download.owncloud.com/internal/10.4.0/owncloud-enterprise-complete-20200304.tar.bz2',
-      'tarball_sha': 'f1e9ef86c6297bb31d0c7f749f7e662f70b33e8c3287a8f22fcb220f19359394',
-      'php': '7.3',
-      'behat_version': 'behat-10.4.0',
-      'base': 'v19.10',
-      'tags': ['10.4', '10'],
-    },
-
   ]
 
   arches = [
