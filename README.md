@@ -1,5 +1,7 @@
 # ownCloud: Enterprise
 
+> **Deprectaed:** Merged with [owncloud-docker/server](https://github.com/owncloud-docker/server), see our [Release Notes](https://doc.owncloud.com/server/10.5/admin_manual/release_notes.html#changes-in-delivery).
+
 [![Build Status](https://cloud.drone.io/api/badges/owncloud-docker/enterprise/status.svg)](https://cloud.drone.io/owncloud-docker/enterprise)
 
 This is the official ownCloud image for the enterprise edition, it is built from our [base container](https://registry.hub.docker.com/u/owncloud/base/). This ownCloud image is designed to work with a data volume in the host filesystem and with separate MariaDB and Redis containers.
